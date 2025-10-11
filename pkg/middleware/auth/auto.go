@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/neee333ko/IAM/internal/pkg/code"
-	"github.com/neee333ko/IAM/pkg/core"
 	"github.com/neee333ko/IAM/pkg/middleware"
+	"github.com/neee333ko/component-base/pkg/core"
 	"github.com/neee333ko/errors"
 )
 
