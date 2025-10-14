@@ -74,12 +74,6 @@ github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd h1:TRLaZ9cD/w
 github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
 github.com/modern-go/reflect2 v1.0.2 h1:xBagoLtFs94CBntxluKeaWgTMpvLxC4ur3nMaC9Gz0M=
 github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjYzDa0/r8luk=
-github.com/neee333ko/component-base v0.11.1 h1:tBoROUqtWrfsNEHU2RfPbGOnyc24HQWjjQB5d4w+2Dk=
-github.com/neee333ko/component-base v0.11.1/go.mod h1:6PM4Lekbw/NicivdDhtpJah6LRft02PkvipS23Le5dQ=
-github.com/neee333ko/component-base v0.12.0 h1:Uqj7dE3dZLERu8WXXJQ9qNkIwjzLpurl/2IntJtutjs=
-github.com/neee333ko/component-base v0.12.0/go.mod h1:6PM4Lekbw/NicivdDhtpJah6LRft02PkvipS23Le5dQ=
-github.com/neee333ko/component-base v0.12.1 h1:RAJKyYOtyUoxqeg3GooH7JK1x8rELYnAX6lxko4laLg=
-github.com/neee333ko/component-base v0.12.1/go.mod h1:6PM4Lekbw/NicivdDhtpJah6LRft02PkvipS23Le5dQ=
 github.com/neee333ko/component-base v0.12.2 h1:RnEaJQRNwDgOL7kYv9wdsYHDC0cUK3mf4T4MOfkIIGg=
 github.com/neee333ko/component-base v0.12.2/go.mod h1:6PM4Lekbw/NicivdDhtpJah6LRft02PkvipS23Le5dQ=
 github.com/neee333ko/errors v1.0.0 h1:Vth3S2HWvIOiy/xu3gCS73R4pBU17ioH643KNPLCOR4=
