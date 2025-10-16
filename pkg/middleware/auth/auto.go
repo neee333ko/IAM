@@ -24,7 +24,7 @@ func NewAutoAuth(basic, jwt middleware.Auth) *AutoAuth {
 	}
 }
 
-func (aa *AutoAuth) Authenticate() gin.HandlerFunc {
+func (aa *AutoAuth) AuthFunc() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		h := ctx.GetHeader("Authorization")
 
@@ -49,6 +49,8 @@ func (aa *AutoAuth) Authenticate() gin.HandlerFunc {
 			return
 		}
 
-		authOp.Operate()
+		authOp.Operate()(ctx)
+
+		ctx.Next()
 	}
 }

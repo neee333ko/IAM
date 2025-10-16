@@ -3,7 +3,7 @@ package middleware
 import "github.com/gin-gonic/gin"
 
 type Auth interface {
-	Authenticate() gin.HandlerFunc
+	AuthFunc() gin.HandlerFunc
 }
 
 type AuthOperator struct {
@@ -15,5 +15,5 @@ func (op *AuthOperator) SetAuth(a Auth) {
 }
 
 func (op *AuthOperator) Operate() gin.HandlerFunc {
-	return op.a.Authenticate()
+	return op.a.AuthFunc()
 }

@@ -18,6 +18,6 @@ func NewJwtAuth(m *jwt.GinJWTMiddleware) *JwtAuth {
 	}
 }
 
-func (j *JwtAuth) Authenticate() gin.HandlerFunc {
+func (j *JwtAuth) AuthFunc() gin.HandlerFunc {
 	return j.m.MiddlewareFunc()
 }

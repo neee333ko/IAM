@@ -23,7 +23,7 @@ func NewBasicAuth(compare func(name string, password string) bool) *BasicAuth {
 	}
 }
 
-func (b *BasicAuth) Authenticate() gin.HandlerFunc {
+func (b *BasicAuth) AuthFunc() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		head := ctx.GetHeader("Authorization")
 		authorization := strings.SplitN(head, " ", 2)
@@ -53,6 +53,5 @@ func (b *BasicAuth) Authenticate() gin.HandlerFunc {
 		ctx.Set(middleware.KeyUsername, strs[0])
 
 		ctx.Next()
-
 	}
 }
