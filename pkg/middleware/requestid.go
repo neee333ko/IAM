@@ -11,7 +11,7 @@ import (
 
 const KeyRequestID = "X-Request-ID"
 
-func RequestID(ctx *gin.Context) gin.HandlerFunc {
+func RequestID() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		rid := ctx.GetHeader(KeyRequestID)
 
