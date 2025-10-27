@@ -1,4 +1,4 @@
-package user
+package policy
 
 import (
 	"github.com/gin-gonic/gin"
@@ -8,19 +8,19 @@ import (
 	"github.com/neee333ko/errors"
 )
 
-type userNames struct {
+type policyNames struct {
 	Names []string `json:"names"`
 }
 
-func (uc *UserController) DeleteCollection(ctx *gin.Context) {
-	var users *userNames = new(userNames)
+func (pc *PolicyController) DeleteCollection(ctx *gin.Context) {
+	pn := new(policyNames)
 
-	if err := ctx.BindJSON(users); err != nil {
-		core.WriteResponse(ctx, errors.WithCode(code.ErrBind, err.Error()), nil)
+	if err := ctx.BindJSON(pn); err != nil {
+		core.WriteResponse(ctx, errors.WithCode(code.ErrBind, ""), nil)
 		return
 	}
 
-	if err := uc.service.UserServ().DeleteCollection(ctx, users.Names, &metav1.DeleteOptions{Unscoped: true}); err != nil {
+	if err := pc.service.SecretServ().DeleteCollection(ctx, pn.Names, &metav1.DeleteOptions{Unscoped: true}); err != nil {
 		core.WriteResponse(ctx, err, nil)
 		return
 	}

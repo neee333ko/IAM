@@ -1,4 +1,4 @@
-package user
+package policy
 
 import (
 	"github.com/gin-gonic/gin"
@@ -8,7 +8,7 @@ import (
 	"github.com/neee333ko/errors"
 )
 
-func (uc *UserController) List(ctx *gin.Context) {
+func (pc *PolicyController) List(ctx *gin.Context) {
 	var options *metav1.ListOptions = new(metav1.ListOptions)
 
 	if err := ctx.BindQuery(options); err != nil {
@@ -16,7 +16,7 @@ func (uc *UserController) List(ctx *gin.Context) {
 		return
 	}
 
-	list, err := uc.service.UserServ().List(ctx, options)
+	list, err := pc.service.PolicyServ().List(ctx, options)
 	if err != nil {
 		core.WriteResponse(ctx, err, nil)
 		return

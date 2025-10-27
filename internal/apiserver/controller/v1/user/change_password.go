@@ -3,27 +3,51 @@ package user
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/neee333ko/IAM/internal/pkg/code"
-	v1 "github.com/neee333ko/api/apiserver/v1"
+	"github.com/neee333ko/component-base/pkg/auth"
 	"github.com/neee333ko/component-base/pkg/core"
 	metav1 "github.com/neee333ko/component-base/pkg/meta/v1"
 	"github.com/neee333ko/errors"
 )
 
-func (uc *UserController) ChangePassword(ctx *gin.Context) {
-	var user *v1.User = new(v1.User)
+type password struct {
+	OldPassword string `json:"oldPassword"`
+	NewPassword string `json:"newPassword"`
+}
 
-	if err := ctx.BindJSON(user); err != nil {
+func (uc *UserController) ChangePassword(ctx *gin.Context) {
+	var pw *password = new(password)
+
+	if err := ctx.BindJSON(pw); err != nil {
 		core.WriteResponse(ctx, errors.WithCode(code.ErrBind, err.Error()), nil)
 		return
 	}
 
 	username := ctx.Param("name")
-	user.Name = username
 
-	if err := uc.service.UserServ().Update(user, &metav1.UpdateOptions{}); err != nil {
+	u, err := uc.service.UserServ().Get(ctx, username, &metav1.GetOptions{})
+	if err != nil {
 		core.WriteResponse(ctx, err, nil)
 		return
 	}
 
-	core.WriteResponse(ctx, errors.WithCode(code.ErrSuccess, ""), nil)
+	if err := u.Compare(pw.OldPassword); err != nil {
+		core.WriteResponse(ctx, errors.WithCode(code.ErrPasswordIncorrect, ""), nil)
+		return
+	}
+
+	u.Password = pw.NewPassword
+
+	if err := u.ValidateUpdatePassword(); len(err) != 0 {
+		core.WriteResponse(ctx, errors.WithCode(code.ErrValidation, err.ToAggregate().Error()), nil)
+		return
+	}
+
+	u.Password, _ = auth.Encrypt(u.Password)
+
+	if err := uc.service.UserServ().Update(ctx, u, &metav1.UpdateOptions{}); err != nil {
+		core.WriteResponse(ctx, err, nil)
+		return
+	}
+
+	core.WriteResponse(ctx, errors.WithCode(code.ErrSuccess, ""), u)
 }

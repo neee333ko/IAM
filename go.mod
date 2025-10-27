@@ -7,7 +7,7 @@ require (
 	github.com/fatih/color v1.18.0
 	github.com/gin-contrib/cors v1.7.6
 	github.com/gin-gonic/gin v1.11.0
-	github.com/neee333ko/api v0.1.1
+	github.com/neee333ko/api v0.2.0
 	github.com/neee333ko/component-base v0.12.4
 	github.com/neee333ko/errors v1.0.0
 	github.com/neee333ko/log v0.0.0-20250821104916-3943190a6aac

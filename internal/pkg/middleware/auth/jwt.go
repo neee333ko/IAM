@@ -3,7 +3,7 @@ package auth
 import (
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
-	"github.com/neee333ko/IAM/pkg/middleware"
+	"github.com/neee333ko/IAM/internal/pkg/middleware"
 )
 
 type JwtAuth struct {

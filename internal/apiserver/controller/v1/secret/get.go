@@ -1,4 +1,4 @@
-package user
+package secret
 
 import (
 	"github.com/gin-gonic/gin"
@@ -8,14 +8,14 @@ import (
 	"github.com/neee333ko/errors"
 )
 
-func (uc *UserController) Get(ctx *gin.Context) {
-	username := ctx.Param("name")
+func (sc *SecretController) Get(ctx *gin.Context) {
+	username := ctx.Param(":username")
 
-	user, err := uc.service.UserServ().Get(ctx, username, &metav1.GetOptions{})
+	sl, err := sc.service.SecretServ().Get(ctx, username, &metav1.GetOptions{})
 	if err != nil {
 		core.WriteResponse(ctx, err, nil)
 		return
 	}
 
-	core.WriteResponse(ctx, errors.WithCode(code.ErrSuccess, ""), user)
+	core.WriteResponse(ctx, errors.WithCode(code.ErrSuccess, ""), sl)
 }

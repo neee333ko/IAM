@@ -16,7 +16,7 @@ func (sc *SecretController) List(ctx *gin.Context) {
 		return
 	}
 
-	list, err := sc.service.SecretServ().List(options)
+	list, err := sc.service.SecretServ().List(ctx, options)
 	if err != nil {
 		core.WriteResponse(ctx, err, nil)
 		return

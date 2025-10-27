@@ -1,4 +1,4 @@
-package secret
+package policy
 
 import (
 	"github.com/gin-gonic/gin"
@@ -9,22 +9,22 @@ import (
 	"github.com/neee333ko/errors"
 )
 
-func (sc *SecretController) Delete(ctx *gin.Context) {
+func (pc *PolicyController) Delete(ctx *gin.Context) {
 	name := ctx.Param("name")
 	username := ctx.GetString(middleware.KeyUsername)
 
-	s, err := sc.service.SecretServ().GetSingle(ctx, name, &metav1.GetOptions{})
+	p, err := pc.service.PolicyServ().GetSingle(ctx, name, &metav1.GetOptions{})
 	if err != nil {
 		core.WriteResponse(ctx, err, nil)
 		return
 	}
 
-	if s.Username != username && ctx.GetInt(middleware.KeyAdmin) != 1 {
+	if p.Username != username && ctx.GetInt(middleware.KeyAdmin) != 1 {
 		core.WriteResponse(ctx, errors.WithCode(code.ErrValidation, ""), nil)
 		return
 	}
 
-	if err := sc.service.SecretServ().Delete(ctx, name, &metav1.DeleteOptions{Unscoped: true}); err != nil {
+	if err := pc.service.PolicyServ().Delete(ctx, name, &metav1.DeleteOptions{Unscoped: true}); err != nil {
 		core.WriteResponse(ctx, err, nil)
 		return
 	}

@@ -18,24 +18,26 @@ func (uc *UserController) Update(ctx *gin.Context) {
 	}
 
 	username := ctx.Param("name")
-	var u *v1.User
-	u, err := uc.service.UserServ().Get(username, &metav1.GetOptions{})
+	u, err := uc.service.UserServ().Get(ctx, username, &metav1.GetOptions{})
 	if err != nil {
-		core.WriteResponse(ctx, errors.WithCode(code.ErrUnknown, err.Error()), nil)
-		return
-	}
-
-	if u.IsAdmin == 0 && user.IsAdmin == 1 {
-		core.WriteResponse(ctx, errors.WithCode(code.ErrPermissionDenied, ""), nil)
-		return
-	}
-
-	user.Name = username
-
-	if err := uc.service.UserServ().Update(user, &metav1.UpdateOptions{}); err != nil {
 		core.WriteResponse(ctx, err, nil)
 		return
 	}
 
-	core.WriteResponse(ctx, errors.WithCode(code.ErrSuccess, ""), nil)
+	u.Status = user.Status
+	u.Nickname = user.Nickname
+	u.Email = user.Email
+	u.Phone = user.Phone
+
+	if err := u.ValidateUpdate(); len(err) != 0 {
+		core.WriteResponse(ctx, errors.WithCode(code.ErrValidation, ""), nil)
+		return
+	}
+
+	if err := uc.service.UserServ().Update(ctx, u, &metav1.UpdateOptions{}); err != nil {
+		core.WriteResponse(ctx, err, nil)
+		return
+	}
+
+	core.WriteResponse(ctx, errors.WithCode(code.ErrSuccess, ""), u)
 }

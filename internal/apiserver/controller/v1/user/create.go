@@ -17,7 +17,7 @@ func (uc *UserController) Create(ctx *gin.Context) {
 		return
 	}
 
-	if err := user.ValidateCreate(); err != nil {
+	if err := user.ValidateCreate(); len(err) != 0 {
 		core.WriteResponse(ctx, errors.WithCode(code.ErrValidation, err.ToAggregate().Error()), nil)
 		return
 	}
@@ -25,10 +25,11 @@ func (uc *UserController) Create(ctx *gin.Context) {
 	user.Password, _ = auth.Encrypt(user.Password)
 	user.Status = 1
 
-	if err := uc.service.UserServ().Create(user, &metav1.CreateOptions{}); err != nil {
+	err := uc.service.UserServ().Create(ctx, user, &metav1.CreateOptions{})
+	if err != nil {
 		core.WriteResponse(ctx, err, nil)
 		return
 	}
 
-	core.WriteResponse(ctx, errors.WithCode(code.ErrSuccess, ""), nil)
+	core.WriteResponse(ctx, errors.WithCode(code.ErrSuccess, ""), user)
 }
