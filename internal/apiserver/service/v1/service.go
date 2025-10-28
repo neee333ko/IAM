@@ -12,6 +12,10 @@ type SService struct {
 	store store.Factory
 }
 
+func NewService(s store.Factory) Service {
+	return &SService{store: s}
+}
+
 func (s *SService) UserServ() UserServ {
 	return &UserService{store: s.store}
 }

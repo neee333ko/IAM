@@ -31,5 +31,5 @@ func (uc *UserController) Create(ctx *gin.Context) {
 		return
 	}
 
-	core.WriteResponse(ctx, errors.WithCode(code.ErrSuccess, ""), user)
+	core.WriteResponse(ctx, nil, user)
 }

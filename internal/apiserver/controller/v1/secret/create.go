@@ -52,5 +52,5 @@ func (sc *SecretController) Create(ctx *gin.Context) {
 		return
 	}
 
-	core.WriteResponse(ctx, errors.WithCode(code.ErrSuccess, ""), secret)
+	core.WriteResponse(ctx, nil, secret)
 }

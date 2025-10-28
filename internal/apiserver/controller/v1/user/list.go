@@ -22,5 +22,5 @@ func (uc *UserController) List(ctx *gin.Context) {
 		return
 	}
 
-	core.WriteResponse(ctx, errors.WithCode(code.ErrSuccess, ""), list)
+	core.WriteResponse(ctx, nil, list)
 }

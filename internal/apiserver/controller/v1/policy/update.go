@@ -42,5 +42,5 @@ func (pc *PolicyController) Update(ctx *gin.Context) {
 		return
 	}
 
-	core.WriteResponse(ctx, errors.WithCode(code.ErrSuccess, ""), policy)
+	core.WriteResponse(ctx, nil, policy)
 }

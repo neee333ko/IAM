@@ -49,5 +49,5 @@ func (uc *UserController) ChangePassword(ctx *gin.Context) {
 		return
 	}
 
-	core.WriteResponse(ctx, errors.WithCode(code.ErrSuccess, ""), u)
+	core.WriteResponse(ctx, nil, u)
 }

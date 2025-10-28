@@ -25,5 +25,5 @@ func (pc *PolicyController) DeleteCollection(ctx *gin.Context) {
 		return
 	}
 
-	core.WriteResponse(ctx, errors.WithCode(code.ErrSuccess, ""), nil)
+	core.WriteResponse(ctx, nil, nil)
 }

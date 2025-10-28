@@ -30,7 +30,7 @@ func (uc *UserController) Update(ctx *gin.Context) {
 	u.Phone = user.Phone
 
 	if err := u.ValidateUpdate(); len(err) != 0 {
-		core.WriteResponse(ctx, errors.WithCode(code.ErrValidation, ""), nil)
+		core.WriteResponse(ctx, errors.WithCode(code.ErrValidation, err.ToAggregate().Error()), nil)
 		return
 	}
 
@@ -39,5 +39,5 @@ func (uc *UserController) Update(ctx *gin.Context) {
 		return
 	}
 
-	core.WriteResponse(ctx, errors.WithCode(code.ErrSuccess, ""), u)
+	core.WriteResponse(ctx, nil, u)
 }

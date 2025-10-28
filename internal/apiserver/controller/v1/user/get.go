@@ -2,10 +2,8 @@ package user
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/neee333ko/IAM/internal/pkg/code"
 	"github.com/neee333ko/component-base/pkg/core"
 	metav1 "github.com/neee333ko/component-base/pkg/meta/v1"
-	"github.com/neee333ko/errors"
 )
 
 func (uc *UserController) Get(ctx *gin.Context) {
@@ -17,5 +15,5 @@ func (uc *UserController) Get(ctx *gin.Context) {
 		return
 	}
 
-	core.WriteResponse(ctx, errors.WithCode(code.ErrSuccess, ""), user)
+	core.WriteResponse(ctx, nil, user)
 }
