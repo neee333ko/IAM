@@ -20,6 +20,9 @@ const (
 
 	// ErrPageNotFound - 404: Page not found.
 	ErrPageNotFound
+
+	// ErrQueryInvalid - 401: Query invalid.
+	ErrQueryInvalid
 )
 
 // common: database errors.

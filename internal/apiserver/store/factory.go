@@ -6,7 +6,8 @@ type Factory interface {
 	NewUserStore() UserStore
 	NewSecretStore() SecretStore
 	NewPolicyStore() PolicyStore
-	Close()
+	NewPolicyAuditStore() PolicyAuditStore
+	Close() error
 }
 
 func SetClient(f Factory) {

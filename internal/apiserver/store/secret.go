@@ -8,7 +8,7 @@ import (
 )
 
 type SecretStore interface {
-	Create(c context.Context, user *v1.Secret, options *metav1.CreateOptions) error
+	Create(c context.Context, secret *v1.Secret, options *metav1.CreateOptions) error
 	// Update(c context.Context, user *v1.Secret, options *metav1.UpdateOptions) error
 	Get(c context.Context, username string, options *metav1.GetOptions) (*v1.SecretList, error)
 	GetSingle(c context.Context, name string, options *metav1.GetOptions) (*v1.Secret, error)

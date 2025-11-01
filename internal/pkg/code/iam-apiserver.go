@@ -16,10 +16,15 @@ const (
 
 	//  ErrSecretNotFound - 404: Secret not found.
 	ErrSecretNotFound
+
+	// ErrSecretAlreadyExist - 400: Secret already exists
+	ErrSecretAlreadyExist
 )
 
 // iam-apiserver: policy errors.
 const (
 	// ErrPolicyNotFound - 404: Policy not found.
 	ErrPolicyNotFound int = iota + 110201
+
+	ErrPolicyAlreadyExist
 )

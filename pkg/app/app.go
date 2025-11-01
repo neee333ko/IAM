@@ -135,7 +135,7 @@ func (app *App) buildCommand() {
 		cmd.SetHelpCommand(helpCommand(app.basename))
 	}
 
-	app.cmd.Run = app.runCommand
+	cmd.Run = app.runCommand
 
 	var nfs cli.NamedFlagSets
 
