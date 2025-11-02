@@ -10,7 +10,7 @@ require (
 	github.com/gin-gonic/gin v1.11.0
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/jinzhu/gorm v1.9.16
-	github.com/neee333ko/api v0.2.1
+	github.com/neee333ko/api v0.3.0
 	github.com/neee333ko/component-base v0.13.0
 	github.com/neee333ko/errors v1.0.1
 	github.com/neee333ko/log v0.0.0-20250821104916-3943190a6aac
@@ -87,6 +87,8 @@ require (
 	golang.org/x/sys v0.35.0 // indirect
 	golang.org/x/text v0.28.0 // indirect
 	golang.org/x/tools v0.35.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20250804133106-a7a43d27e69b // indirect
+	google.golang.org/grpc v1.76.0 // indirect
 	google.golang.org/protobuf v1.36.9 // indirect
 	k8s.io/klog v1.0.0 // indirect
 )
