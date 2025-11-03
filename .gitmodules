@@ -1,0 +1,3 @@
+[submodule "third_party/murmur3"]
+	path = third_party/murmur3
+	url = https://github.com/neee333ko/murmur3.git
