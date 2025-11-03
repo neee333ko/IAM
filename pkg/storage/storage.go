@@ -1,7 +1,3 @@
-// Copyright 2020 Lingfei Kong <colin404@foxmail.com>. All rights reserved.
-// Use of this source code is governed by a MIT style
-// license that can be found in the LICENSE file.
-
 // Package storage defines redis storage.
 package storage
 
@@ -18,7 +14,7 @@ import (
 	"github.com/buger/jsonparser"
 	uuid "github.com/satori/go.uuid"
 
-	"github.com/marmotedu/iam/third_party/forked/murmur3"
+	"github.com/neee333ko/IAM/third_party/murmur3"
 )
 
 // ErrKeyNotFound is a standard error for when a key is not found in the storage engine.
@@ -75,7 +71,7 @@ const defaultHashAlgorithm = "murmur64"
 // GenerateToken generate token, if hashing algorithm is empty, use legacy key generation.
 func GenerateToken(orgID, keyID, hashAlgorithm string) (string, error) {
 	if keyID == "" {
-		keyID = strings.ReplaceAll(uuid.Must(uuid.NewV4()).String(), "-", "")
+		keyID = strings.ReplaceAll(uuid.Must(uuid.NewV4(), nil).String(), "-", "")
 	}
 
 	if hashAlgorithm != "" {

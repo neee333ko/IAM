@@ -4,6 +4,7 @@ go 1.24.4
 
 require (
 	github.com/appleboy/gin-jwt/v2 v2.10.3
+	github.com/buger/jsonparser v1.1.1
 	github.com/fatih/color v1.18.0
 	github.com/gin-contrib/cors v1.7.6
 	github.com/gin-contrib/pprof v1.5.3
@@ -15,6 +16,7 @@ require (
 	github.com/neee333ko/errors v1.0.1
 	github.com/neee333ko/log v0.0.0-20250821104916-3943190a6aac
 	github.com/novalagung/gubrak v1.0.0
+	github.com/redis/go-redis/v9 v9.16.0
 	github.com/satori/go.uuid v1.2.0
 	github.com/spf13/cobra v1.10.1
 	github.com/spf13/pflag v1.0.10
@@ -33,6 +35,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/clipperhouse/uax29/v2 v2.2.0 // indirect
 	github.com/cloudwego/base64x v0.1.6 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/dlclark/regexp2 v1.2.0 // indirect
 	github.com/fsnotify/fsnotify v1.9.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.9 // indirect
