@@ -7,12 +7,15 @@ import (
 	"github.com/neee333ko/component-base/pkg/core"
 	metav1 "github.com/neee333ko/component-base/pkg/meta/v1"
 	"github.com/neee333ko/errors"
+	"github.com/neee333ko/log"
 )
 
 func (uc *UserController) Update(ctx *gin.Context) {
+	log.L(ctx).Info("user update function called...")
+
 	var user *v1.User = new(v1.User)
 
-	if err := ctx.BindJSON(user); err != nil {
+	if err := ctx.ShouldBindJSON(user); err != nil {
 		core.WriteResponse(ctx, errors.WithCode(code.ErrBind, err.Error()), nil)
 		return
 	}

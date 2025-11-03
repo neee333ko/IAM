@@ -7,6 +7,7 @@ import (
 	"github.com/neee333ko/component-base/pkg/core"
 	metav1 "github.com/neee333ko/component-base/pkg/meta/v1"
 	"github.com/neee333ko/errors"
+	"github.com/neee333ko/log"
 )
 
 type password struct {
@@ -15,9 +16,11 @@ type password struct {
 }
 
 func (uc *UserController) ChangePassword(ctx *gin.Context) {
+	log.L(ctx).Info("user change password function called...")
+
 	var pw *password = new(password)
 
-	if err := ctx.BindJSON(pw); err != nil {
+	if err := ctx.ShouldBindJSON(pw); err != nil {
 		core.WriteResponse(ctx, errors.WithCode(code.ErrBind, err.Error()), nil)
 		return
 	}

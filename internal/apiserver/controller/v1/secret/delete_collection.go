@@ -6,6 +6,7 @@ import (
 	"github.com/neee333ko/component-base/pkg/core"
 	metav1 "github.com/neee333ko/component-base/pkg/meta/v1"
 	"github.com/neee333ko/errors"
+	"github.com/neee333ko/log"
 )
 
 type secretNames struct {
@@ -13,6 +14,8 @@ type secretNames struct {
 }
 
 func (sc *SecretController) DeleteCollection(ctx *gin.Context) {
+	log.L(ctx).Info("secret delete collection function called...")
+
 	sn := new(secretNames)
 
 	if err := ctx.BindJSON(sn); err != nil {

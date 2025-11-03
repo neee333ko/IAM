@@ -6,12 +6,15 @@ import (
 	"github.com/neee333ko/component-base/pkg/core"
 	metav1 "github.com/neee333ko/component-base/pkg/meta/v1"
 	"github.com/neee333ko/errors"
+	"github.com/neee333ko/log"
 )
 
 func (uc *UserController) List(ctx *gin.Context) {
+	log.L(ctx).Info("user list function called...")
+
 	var options *metav1.ListOptions = new(metav1.ListOptions)
 
-	if err := ctx.BindQuery(options); err != nil {
+	if err := ctx.ShouldBindQuery(options); err != nil {
 		core.WriteResponse(ctx, errors.WithCode(code.ErrBind, err.Error()), nil)
 		return
 	}

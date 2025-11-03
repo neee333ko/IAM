@@ -8,14 +8,17 @@ import (
 	"github.com/neee333ko/component-base/pkg/core"
 	metav1 "github.com/neee333ko/component-base/pkg/meta/v1"
 	"github.com/neee333ko/errors"
+	"github.com/neee333ko/log"
 )
 
 func (pc *PolicyController) Create(ctx *gin.Context) {
+	log.L(ctx).Info("policy create function called...")
+
 	username := ctx.GetString(middleware.KeyUsername)
 
 	var policy *v1.Policy = new(v1.Policy)
 
-	if err := ctx.BindJSON(policy); err != nil {
+	if err := ctx.ShouldBindJSON(policy); err != nil {
 		core.WriteResponse(ctx, errors.WithCode(code.ErrBind, err.Error()), nil)
 		return
 	}

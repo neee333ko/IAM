@@ -7,9 +7,12 @@ import (
 	"github.com/neee333ko/component-base/pkg/core"
 	metav1 "github.com/neee333ko/component-base/pkg/meta/v1"
 	"github.com/neee333ko/errors"
+	"github.com/neee333ko/log"
 )
 
 func (sc *SecretController) Delete(ctx *gin.Context) {
+	log.L(ctx).Info("secret delete function called...")
+
 	name := ctx.Param("name")
 	username := ctx.GetString(middleware.KeyUsername)
 

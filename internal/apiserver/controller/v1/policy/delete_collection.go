@@ -6,6 +6,7 @@ import (
 	"github.com/neee333ko/component-base/pkg/core"
 	metav1 "github.com/neee333ko/component-base/pkg/meta/v1"
 	"github.com/neee333ko/errors"
+	"github.com/neee333ko/log"
 )
 
 type policyNames struct {
@@ -13,9 +14,11 @@ type policyNames struct {
 }
 
 func (pc *PolicyController) DeleteCollection(ctx *gin.Context) {
+	log.L(ctx).Info("policy delete collection function called...")
+
 	pn := new(policyNames)
 
-	if err := ctx.BindJSON(pn); err != nil {
+	if err := ctx.ShouldBindJSON(pn); err != nil {
 		core.WriteResponse(ctx, errors.WithCode(code.ErrBind, ""), nil)
 		return
 	}

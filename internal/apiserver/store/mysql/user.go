@@ -69,12 +69,12 @@ func (ud *UserDatabase) List(c context.Context, options *metav1.ListOptions) (*v
 
 	var userlist *v1.UserList = new(v1.UserList)
 
-	err = ud.db.Where("name = ? and status = 1", value).
+	err = ud.db.Where("name like ? and status = 1", "%"+value+"%").
 		Limit(options.Limit).
 		Offset(options.Offset).
-		Find(userlist.Items).
+		Find(&userlist.Items).
 		Limit(-1).Offset(-1).
-		Count(userlist.TotalCount).Error
+		Count(&userlist.TotalCount).Error
 	if err != nil {
 		return nil, errors.WithCode(code.ErrDatabase, err.Error())
 	}

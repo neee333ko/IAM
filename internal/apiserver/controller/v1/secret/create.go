@@ -9,11 +9,14 @@ import (
 	metav1 "github.com/neee333ko/component-base/pkg/meta/v1"
 	"github.com/neee333ko/component-base/pkg/util/idutil"
 	"github.com/neee333ko/errors"
+	"github.com/neee333ko/log"
 )
 
 var maxSecretCount = 10
 
 func (sc *SecretController) Create(ctx *gin.Context) {
+	log.L(ctx).Info("secret create function called...")
+
 	var secret *v1.Secret = new(v1.Secret)
 
 	if err := ctx.BindJSON(secret); err != nil {
