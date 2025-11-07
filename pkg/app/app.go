@@ -51,6 +51,12 @@ func WithDiscription(disc string) Option {
 	}
 }
 
+func WithOption(option CliOption) Option {
+	return func(a *App) {
+		a.option = option
+	}
+}
+
 func WithNoVersion() Option {
 	return func(a *App) {
 		a.noVersion = true
@@ -83,7 +89,7 @@ func WithPositionalArgs(args cobra.PositionalArgs) Option {
 	}
 }
 
-func WithDefaultPositionalArgs(args cobra.PositionalArgs) Option {
+func WithDefaultPositionalArgs() Option {
 	return func(a *App) {
 		a.args = func(cmd *cobra.Command, args []string) error {
 			for _, arg := range args {
@@ -219,7 +225,9 @@ func (app *App) runCommand(cmd *cobra.Command, args []string) {
 func (app *App) applyOption() {
 	if co, ok := app.option.(CompleteOption); ok {
 		err := co.Complete()
-		log.Fatal(err.Error())
+		if err != nil {
+			log.Fatal(err.Error())
+		}
 	}
 
 	if err := app.option.Validate(); err != nil {

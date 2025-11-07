@@ -30,7 +30,7 @@ func Validation() gin.HandlerFunc {
 					ctx.Abort()
 					return
 				}
-			case "/v1/users":
+			case "/v1/users", "/v1/secrets", "/v1/policy":
 				if ctx.Request.Method == "GET" || ctx.Request.Method == "DELETE" {
 					core.WriteResponse(ctx, errors.WithCode(code.ErrValidation, ""), nil)
 					ctx.Abort()
@@ -43,13 +43,6 @@ func Validation() gin.HandlerFunc {
 					ctx.Abort()
 					return
 				}
-			case "/v1/secrets", "/v1/policy":
-				if ctx.Request.Method == "GET" || ctx.Request.Method == "DELETE" {
-					core.WriteResponse(ctx, errors.WithCode(code.ErrValidation, ""), nil)
-					ctx.Abort()
-					return
-				}
-
 			}
 		}
 	}

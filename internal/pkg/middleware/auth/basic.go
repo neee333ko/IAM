@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"context"
 	"encoding/base64"
 	"strings"
 
@@ -12,12 +13,12 @@ import (
 )
 
 type BasicAuth struct {
-	Compare func(name string, password string) bool
+	Compare func(ctx context.Context, name string, password string) bool
 }
 
 var _ middleware.Auth = &BasicAuth{}
 
-func NewBasicAuth(compare func(name string, password string) bool) *BasicAuth {
+func NewBasicAuth(compare func(ctx context.Context, name string, password string) bool) *BasicAuth {
 	return &BasicAuth{
 		Compare: compare,
 	}
@@ -44,7 +45,7 @@ func (b *BasicAuth) AuthFunc() gin.HandlerFunc {
 			return
 		}
 
-		if !b.Compare(strs[0], strs[1]) {
+		if !b.Compare(ctx, strs[0], strs[1]) {
 			core.WriteResponse(ctx, errors.WithCode(code.ErrPasswordIncorrect, "Password Incorrect"), nil)
 			ctx.Abort()
 			return

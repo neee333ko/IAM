@@ -40,7 +40,6 @@ func (o *SecureOption) Validate() field.ErrorList {
 	return nil
 }
 
-
 func (o *SecureOption) Complete() error {
 	if o.Address == "" {
 		o.Address = "127.0.0.1:443"
