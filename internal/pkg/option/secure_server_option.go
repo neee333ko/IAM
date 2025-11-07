@@ -3,6 +3,7 @@ package option
 import (
 	"path/filepath"
 
+	"github.com/neee333ko/IAM/internal/pkg/server"
 	"github.com/neee333ko/component-base/pkg/cli"
 	"github.com/neee333ko/component-base/pkg/validation/field"
 	"github.com/spf13/pflag"
@@ -49,6 +50,14 @@ func (o *SecureOption) Complete() error {
 		o.TLSConfig.CertKey.CertFile = filepath.Join(o.TLSConfig.Directory, o.TLSConfig.PairName+".pem")
 		o.TLSConfig.CertKey.CertKey = filepath.Join(o.TLSConfig.Directory, o.TLSConfig.PairName+"-key.pem")
 	}
+
+	return nil
+}
+
+func (o *SecureOption) ApplyTo(cfg *server.Config) error {
+	cfg.SecureService.Address = o.Address
+	cfg.SecureService.CertKey.CertFile = o.TLSConfig.CertKey.CertFile
+	cfg.SecureService.CertKey.KeyFile = o.TLSConfig.CertKey.CertKey
 
 	return nil
 }

@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/neee333ko/IAM/internal/apiserver/config"
 )
 
 type Config struct {
@@ -45,22 +44,6 @@ func NewConfig() *Config {
 		EnableMetrics:   true,
 		EnableProfiling: true,
 	}
-}
-
-func (c *Config) Apply(cfg *config.Config) *Config {
-	c.SecureService.Address = cfg.SecureOp.Address
-	c.SecureService.CertKey.CertFile = cfg.SecureOp.TLSConfig.CertKey.CertFile
-	c.SecureService.CertKey.KeyFile = cfg.SecureOp.TLSConfig.CertKey.CertKey
-	c.InsecureService.Address = cfg.InsecureOp.Address
-	c.Middlewares = cfg.RunOp.Middlewares
-	c.Timeout = time.Duration(cfg.RunOp.TimeOut)
-	c.Mode = cfg.RunOp.Mode
-	c.Healthz = cfg.RunOp.Healthz
-	c.Version = cfg.RunOp.Version
-	c.EnableMetrics = cfg.Feature.EnableMetrics
-	c.EnableProfiling = cfg.Feature.EnableProfiling
-
-	return c
 }
 
 type CompletedConfig struct {

@@ -69,7 +69,7 @@ func WithNoConfig() Option {
 	}
 }
 
-type RunFunc func(string)
+type RunFunc func(string) error
 
 func WithRunFunc(run RunFunc) Option {
 	return func(a *App) {

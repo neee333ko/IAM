@@ -6,14 +6,13 @@ import (
 	"time"
 
 	"github.com/neee333ko/IAM/internal/apiserver/store"
-	"github.com/neee333ko/IAM/internal/pkg/code"
 	pb "github.com/neee333ko/api/proto/v1"
 	v1 "github.com/neee333ko/component-base/pkg/meta/v1"
-	"github.com/neee333ko/errors"
 	"github.com/neee333ko/log"
 )
 
 type CacheController struct {
+	pb.UnimplementedCacheServer
 	store store.Factory
 }
 
@@ -41,11 +40,12 @@ func (cc *CacheController) ListSecrets(ctx context.Context, req *pb.ListSecretsR
 
 	sl, err := cc.store.NewSecretStore().List(ctx, &v1.ListOptions{Offset: req.GetOffset(), Limit: req.GetLimit()})
 	if err != nil {
-		return nil, errors.WithCode(code.ErrUnknown, err.Error())
+		return nil, err
 	}
 
 	var resp *pb.ListSecretsResponse = new(pb.ListSecretsResponse)
 	resp.TotalCount = sl.GetTotalCount()
+	resp.Items = make([]*pb.SecretInfo, 0)
 
 	for _, item := range sl.Items {
 		resp.Items = append(resp.Items, &pb.SecretInfo{
@@ -68,11 +68,12 @@ func (cc *CacheController) ListPolicies(ctx context.Context, req *pb.ListPolicie
 
 	pl, err := cc.store.NewPolicyStore().List(ctx, &v1.ListOptions{Offset: req.GetOffset(), Limit: req.GetLimit()})
 	if err != nil {
-		return nil, errors.WithCode(code.ErrUnknown, err.Error())
+		return nil, err
 	}
 
 	var resp *pb.ListPoliciesResponse = new(pb.ListPoliciesResponse)
 	resp.TotalCount = pl.GetTotalCount()
+	resp.Items = make([]*pb.PolicyInfo, 0)
 
 	for _, item := range pl.Items {
 		resp.Items = append(resp.Items, &pb.PolicyInfo{

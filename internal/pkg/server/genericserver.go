@@ -71,7 +71,7 @@ func (s *GenericServer) InstallAPI() {
 	}
 }
 
-func (s *GenericServer) Run() {
+func (s *GenericServer) Run() error {
 	s.insecureServer = &http.Server{
 		Addr:    s.InsecureService.Address,
 		Handler: s.Engine,
@@ -114,6 +114,8 @@ func (s *GenericServer) Run() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+
+	return nil
 }
 
 func (s *GenericServer) ping(ctx context.Context) {

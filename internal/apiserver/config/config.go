@@ -6,8 +6,6 @@ type Config struct {
 	*option.Option
 }
 
-func NewConfig(option *option.Option) *Config {
-	return &Config{
-		Option: option,
-	}
+func NewConfig(option *option.Option) (*Config, error) {
+	return &Config{Option: option}, nil
 }

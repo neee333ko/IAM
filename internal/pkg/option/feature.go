@@ -1,6 +1,7 @@
 package option
 
 import (
+	"github.com/neee333ko/IAM/internal/pkg/server"
 	"github.com/neee333ko/component-base/pkg/cli"
 	"github.com/neee333ko/component-base/pkg/validation/field"
 	"github.com/spf13/pflag"
@@ -25,5 +26,12 @@ func (o *Feature) Validate() field.ErrorList {
 }
 
 func (o *Feature) Complete() error {
+	return nil
+}
+
+func (o *Feature) ApplyTo(cfg *server.Config) error {
+	cfg.EnableMetrics = o.EnableMetrics
+	cfg.EnableProfiling = o.EnableProfiling
+
 	return nil
 }

@@ -3,13 +3,14 @@ module github.com/neee333ko/IAM
 go 1.24.4
 
 require (
-	github.com/appleboy/gin-jwt/v2 v2.10.3
+	github.com/appleboy/gin-jwt/v3 v3.2.0
 	github.com/buger/jsonparser v1.1.1
 	github.com/fatih/color v1.18.0
 	github.com/gin-contrib/cors v1.7.6
 	github.com/gin-contrib/pprof v1.5.3
 	github.com/gin-gonic/gin v1.11.0
 	github.com/go-sql-driver/mysql v1.5.0
+	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/jinzhu/gorm v1.9.16
 	github.com/neee333ko/api v0.3.0
 	github.com/neee333ko/component-base v0.13.0
@@ -29,7 +30,6 @@ require (
 )
 
 require (
-	github.com/appleboy/gin-jwt/v3 v3.2.0 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bytedance/gopkg v0.1.3 // indirect
@@ -50,7 +50,6 @@ require (
 	github.com/goccy/go-json v0.10.5 // indirect
 	github.com/goccy/go-yaml v1.18.0 // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.2 // indirect
-	github.com/golang-jwt/jwt/v5 v5.3.0 // indirect
 	github.com/gosuri/uitable v0.0.4 // indirect
 	github.com/hashicorp/golang-lru v0.5.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect

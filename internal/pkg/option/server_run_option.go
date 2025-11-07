@@ -1,6 +1,9 @@
 package option
 
 import (
+	"time"
+
+	"github.com/neee333ko/IAM/internal/pkg/server"
 	"github.com/neee333ko/component-base/pkg/cli"
 	"github.com/neee333ko/component-base/pkg/validation/field"
 	"github.com/spf13/pflag"
@@ -31,5 +34,15 @@ func (o *RunOption) Validate() field.ErrorList {
 }
 
 func (o *RunOption) Complete() error {
+	return nil
+}
+
+func (o *RunOption) ApplyTo(cfg *server.Config) error {
+	cfg.Middlewares = o.Middlewares
+	cfg.Timeout = time.Duration(o.TimeOut)
+	cfg.Mode = o.Mode
+	cfg.Healthz = o.Healthz
+	cfg.Version = o.Version
+
 	return nil
 }

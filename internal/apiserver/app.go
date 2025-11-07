@@ -7,13 +7,17 @@ import (
 	"github.com/neee333ko/log"
 )
 
+const commandDesc = ` The IAM API server validates and configures data
+for the api objects which include users, policies, secrets, and
+others. The API Server services REST operations to do the api objects management.`
+
 func App(name string, basename string) *app.App {
 	option := option.NewOption()
 
 	app := app.New(name,
 		basename,
 		app.WithShort("apiserver"),
-		app.WithDiscription("iam apiserver, provides user,secret,policy api"),
+		app.WithDiscription(commandDesc),
 		app.WithDefaultPositionalArgs(),
 		app.WithOption(option),
 		app.WithRunFunc(Run(option)),
@@ -22,13 +26,21 @@ func App(name string, basename string) *app.App {
 	return app
 }
 
-func Run(option *option.Option) func(basename string) {
-	return func(basename string) {
+func Run(option *option.Option) func(basename string) error {
+	return func(basename string) error {
 		log.Init(option.LogOp)
-		config := config.NewConfig(option)
+		log.Flush()
 
-		server := CreateServerFromConfig(config)
+		config, err := config.NewConfig(option)
+		if err != nil {
+			return err
+		}
 
-		server.PreparedRun().Run(basename)
+		server, err := CreateServerFromConfig(config)
+		if err != nil {
+			return err
+		}
+
+		return server.PreparedRun().Run()
 	}
 }

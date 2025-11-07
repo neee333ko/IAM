@@ -1,6 +1,7 @@
 package option
 
 import (
+	"github.com/neee333ko/IAM/internal/pkg/server"
 	"github.com/neee333ko/component-base/pkg/cli"
 	"github.com/neee333ko/component-base/pkg/validation/field"
 	"github.com/spf13/pflag"
@@ -26,6 +27,12 @@ func (o *InsecureOption) Complete() error {
 	if o.Address == "" {
 		o.Address = "127.0.0.1:80"
 	}
+
+	return nil
+}
+
+func (o *InsecureOption) ApplyTo(cfg *server.Config) error {
+	cfg.InsecureService.Address = o.Address
 
 	return nil
 }
