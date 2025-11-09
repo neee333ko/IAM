@@ -42,11 +42,11 @@ func InitRoute(engine *gin.Engine) {
 			users.DELETE("", UserController.DeleteCollection)
 		}
 
+		v1.Use(AutoAuth.AuthFunc(), middleware.Validation())
+
 		secrets := v1.Group("/secrets")
 		{
 			SecretController := secretv1.NewSecretController(store)
-
-			secrets.Use(AutoAuth.AuthFunc(), middleware.Validation())
 
 			secrets.POST("", SecretController.Create)
 			secrets.GET("/:username", SecretController.Get)
@@ -58,8 +58,6 @@ func InitRoute(engine *gin.Engine) {
 		policy := v1.Group("/policy")
 		{
 			policyController := policyv1.NewPolicyController(store)
-
-			policy.Use(AutoAuth.AuthFunc(), middleware.Validation())
 
 			policy.POST("", policyController.Create)
 			policy.PUT("/:name", policyController.Update)

@@ -46,6 +46,11 @@ func InitAuth() {
 		IdentityKey:      middleware.KeyUsername,
 	}
 
+	err := m.MiddlewareInit()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
 	JWTAuth = auth.NewJwtAuth(m)
 
 	client := store.Client()
@@ -70,6 +75,11 @@ func authenticator() func(c *gin.Context) (any, error) {
 		}
 
 		if err := u.Compare(user.Password); err != nil {
+			return nil, err
+		}
+
+		u.LoginedAt = time.Now()
+		if err := client.NewUserStore().Update(c, u, &v1.UpdateOptions{}); err != nil {
 			return nil, err
 		}
 
