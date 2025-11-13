@@ -5,6 +5,7 @@ go 1.24.4
 require (
 	github.com/appleboy/gin-jwt/v3 v3.2.0
 	github.com/buger/jsonparser v1.1.1
+	github.com/dgraph-io/ristretto v0.2.0
 	github.com/fatih/color v1.18.0
 	github.com/gin-contrib/cors v1.7.6
 	github.com/gin-contrib/pprof v1.5.3
@@ -12,11 +13,12 @@ require (
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/jinzhu/gorm v1.9.16
-	github.com/neee333ko/api v0.3.0
+	github.com/neee333ko/api v0.4.0
 	github.com/neee333ko/component-base v0.13.0
 	github.com/neee333ko/errors v1.0.1
 	github.com/neee333ko/log v0.1.1
 	github.com/novalagung/gubrak v1.0.0
+	github.com/ory/ladon v1.3.0
 	github.com/redis/go-redis/v9 v9.16.0
 	github.com/satori/go.uuid v1.2.0
 	github.com/spf13/cobra v1.10.1
@@ -40,6 +42,7 @@ require (
 	github.com/cloudwego/base64x v0.1.6 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/dlclark/regexp2 v1.2.0 // indirect
+	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/fsnotify/fsnotify v1.9.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.10 // indirect
 	github.com/gin-contrib/sse v1.1.0 // indirect
@@ -63,7 +66,6 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
-	github.com/ory/ladon v1.3.0 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/client_golang v1.22.0 // indirect
