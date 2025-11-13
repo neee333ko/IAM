@@ -36,6 +36,18 @@ type Analytics struct {
 	wg                 sync.WaitGroup
 }
 
+func NewAnalytics(option *AnalyticOption) {
+	analytics = Analytics{
+		analyticHandler:    &storage.RedisCluster{},
+		poolSize:           option.PoolSize,
+		workerBufferSize:   option.BufferSize / option.PoolSize,
+		status:             &atomic.Int64{},
+		forcedPushInterval: time.Duration(option.ForcedPushInterval),
+		recordChan:         make(chan AnalyticRecord),
+		wg:                 sync.WaitGroup{},
+	}
+}
+
 var analytics Analytics
 
 func GetAnalytics() *Analytics {
@@ -101,7 +113,7 @@ func (a *Analytics) Listen() {
 			if len(buffer) == int(a.workerBufferSize) {
 				shouldSend = true
 			}
-		case <-time.After(a.forcedPushInterval):
+		case <-time.After(a.forcedPushInterval * time.Millisecond):
 			shouldSend = true
 		}
 
