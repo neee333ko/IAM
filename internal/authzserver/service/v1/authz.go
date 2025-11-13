@@ -14,11 +14,11 @@ type authzService struct {
 	ladon ladon.Warden
 }
 
-func NewAuthzService(pg PolicyGetter) AuthzService {
+func NewAuthzService(a Authorizer) AuthzService {
 	return &authzService{
 		ladon: &ladon.Ladon{
-			Manager:     NewManager(pg),
-			AuditLogger: NewAuthzLogger(),
+			Manager:     NewManager(a),
+			AuditLogger: NewAuthzLogger(a),
 		},
 	}
 }

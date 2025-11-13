@@ -6,16 +6,12 @@ import (
 	"github.com/ory/ladon"
 )
 
-type PolicyGetter interface {
-	GetPolicy(username string) []*ladon.DefaultPolicy
-}
-
 type authzManager struct {
-	pg PolicyGetter
+	a Authorizer
 }
 
-func NewManager(pg PolicyGetter) ladon.Manager {
-	return &authzManager{pg: pg}
+func NewManager(a Authorizer) ladon.Manager {
+	return &authzManager{a: a}
 }
 
 func (m *authzManager) Create(ctx context.Context, policy ladon.Policy) error {
@@ -46,17 +42,7 @@ func (m *authzManager) GetAll(ctx context.Context, limit, offset int64) (ladon.P
 // a set that exactly matches the request, or a superset of it. If an error occurs, it returns nil and
 // the error.
 func (m *authzManager) FindRequestCandidates(ctx context.Context, r *ladon.Request) (ladon.Policies, error) {
-	value := r.Context["username"]
-	username := value.(string)
-
-	policies := m.pg.GetPolicy(username)
-
-	var ppolicies []ladon.Policy = make([]ladon.Policy, 0, len(policies))
-	for _, item := range policies {
-		ppolicies = append(ppolicies, item)
-	}
-
-	return ppolicies, nil
+	return m.a.FindRequestCandidates(ctx, r)
 }
 
 // FindPoliciesForSubject returns policies that could match the subject. It either returns

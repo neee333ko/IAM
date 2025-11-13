@@ -13,12 +13,12 @@ import (
 )
 
 type AuthzController struct {
-	pg servv1.PolicyGetter
+	authorizer servv1.Authorizer
 }
 
-func NewAuthzController(pg servv1.PolicyGetter) *AuthzController {
+func NewAuthzController(authorizer servv1.Authorizer) *AuthzController {
 	return &AuthzController{
-		pg: pg,
+		authorizer: authorizer,
 	}
 }
 
@@ -36,7 +36,7 @@ func (c *AuthzController) Authorize(ctx *gin.Context) {
 
 	req.Context["username"] = ctx.GetString(middleware.KeyUsername)
 
-	if err := servv1.NewAuthzService(c.pg).IsAllowed(ctx, req); err != nil {
+	if err := servv1.NewAuthzService(c.authorizer).IsAllowed(ctx, req); err != nil {
 		core.WriteResponse(ctx, nil, &v1.Response{Result: "false", Error: err.Error()})
 	}
 
