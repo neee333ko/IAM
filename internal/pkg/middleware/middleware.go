@@ -14,5 +14,6 @@ func DefaultMiddlewares() map[string]gin.HandlerFunc {
 		"request":  RequestID(),
 		"context":  Context(),
 		"cors":     Cors(),
+		"publish":  Publish(),
 	}
 }

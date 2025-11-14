@@ -8,6 +8,7 @@ import (
 
 	"github.com/dgraph-io/ristretto"
 	"github.com/neee333ko/IAM/internal/authzserver/store"
+	pb "github.com/neee333ko/api/proto/v1"
 	"github.com/neee333ko/log"
 	"github.com/ory/ladon"
 )
@@ -55,16 +56,16 @@ func GetCacheInsOr() *Cache {
 	return cache
 }
 
-func (cache *Cache) GetSecret(id string) (string, error) {
+func (cache *Cache) GetSecret(id string) (*pb.SecretInfo, error) {
 	cache.secretMutex.RLock()
 	defer cache.secretMutex.RUnlock()
 
 	value, found := cache.secrets.Get(id)
 	if !found {
-		return "", ErrSecretNotFound
+		return nil, ErrSecretNotFound
 	}
 
-	key, _ := value.(string)
+	key, _ := value.(*pb.SecretInfo)
 
 	return key, nil
 }
