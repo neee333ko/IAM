@@ -17,13 +17,26 @@ var (
 )
 
 type AnalyticRecord struct {
-	Timestamp  string `json:"timestamp"`
-	Username   string `json:"username"`
-	Request    string `json:"request"`
-	Pool       string `json:"pool"`
-	Deciders   string `json:"deciders"`
-	Conclusion string `json:"conclusion"`
-	Effect     string `json:"effect"`
+	Timestamp  string    `json:"timestamp"`
+	Username   string    `json:"username"`
+	Request    string    `json:"request"`
+	Pool       string    `json:"pool"`
+	Deciders   string    `json:"deciders"`
+	Conclusion string    `json:"conclusion"`
+	Effect     string    `json:"effect"`
+	ExpireAt   time.Time `json:"expireAt" bson:"expireAt"`
+}
+
+func (record *AnalyticRecord) SetExpire(duration int64) {
+	d := time.Duration(duration) * time.Second
+
+	if d == 0 {
+		d = 24 * 365 * 100 * time.Hour
+	}
+
+	time := time.Now()
+	expireAt := time.Add(d)
+	record.ExpireAt = expireAt
 }
 
 type Analytics struct {
@@ -36,9 +49,9 @@ type Analytics struct {
 	wg                 sync.WaitGroup
 }
 
-func NewAnalytics(option *AnalyticOption) {
+func NewAnalytics(option *AnalyticOption, prefix string) {
 	analytics = Analytics{
-		analyticHandler:    &storage.RedisCluster{},
+		analyticHandler:    &storage.RedisCluster{KeyPrefix: prefix},
 		poolSize:           option.PoolSize,
 		workerBufferSize:   option.BufferSize / option.PoolSize,
 		status:             &atomic.Int64{},

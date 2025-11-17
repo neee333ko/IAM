@@ -34,6 +34,7 @@ func (m *PosixSignalManager) ShutdownStart() error {
 
 func (m *PosixSignalManager) ShutdownFinish() error {
 	log.Info("Graceful Shutdown Finished.")
+	os.Exit(0)
 	return nil
 }
 

@@ -12,18 +12,25 @@ import (
 )
 
 type PolicyGetter interface {
-	GetPolicy(username string) []*ladon.DefaultPolicy
+	GetPolicy(username string) ([]*ladon.DefaultPolicy, error)
 }
 
 type Authorize struct {
 	pg PolicyGetter
 }
 
+func NewAuthorize(pg PolicyGetter) *Authorize {
+	return &Authorize{pg: pg}
+}
+
 func (a *Authorize) FindRequestCandidates(ctx context.Context, r *ladon.Request) (ladon.Policies, error) {
 	value := r.Context["username"]
 	username := value.(string)
 
-	policies := a.pg.GetPolicy(username)
+	policies, err := a.pg.GetPolicy(username)
+	if err != nil {
+		return nil, err
+	}
 
 	var ppolicies []ladon.Policy = make([]ladon.Policy, 0, len(policies))
 	for _, item := range policies {
@@ -47,8 +54,9 @@ func (a *Authorize) LogRejectedAccessRequest(ctx context.Context, request *ladon
 	record.Username = request.Context["username"].(string)
 	record.Request = marshal(request)
 	record.Pool = marshal(pool)
-	record.Effect = "deny"
+	record.Effect = ladon.DenyAccess
 
+	record.SetExpire(0)
 	if err := analytics.GetAnalytics().SendRecord(record); err != nil {
 		log.Warnf("failed to write record: %s because analytics is down.", marshal(record))
 	}
@@ -62,9 +70,10 @@ func (a *Authorize) LogGrantedAccessRequest(ctx context.Context, request *ladon.
 		Pool:       marshal(pool),
 		Deciders:   marshal(deciders),
 		Conclusion: fmt.Sprintf("granted by %d policies", len(deciders)),
-		Effect:     "allow",
+		Effect:     ladon.AllowAccess,
 	}
 
+	record.SetExpire(0)
 	if err := analytics.GetAnalytics().SendRecord(record); err != nil {
 		log.Warnf("failed to write record: %s because analytics is down.", marshal(record))
 	}

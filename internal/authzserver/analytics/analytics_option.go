@@ -15,9 +15,9 @@ type AnalyticOption struct {
 func (a *AnalyticOption) Flags(nfs *cli.NamedFlagSets) {
 	fs := pflag.NewFlagSet("AnalyticOption", pflag.ExitOnError)
 
-	fs.Int64Var(&analytics.poolSize, "pool-size", 8, "total worker number in pool")
-	fs.Int64Var(&a.BufferSize, "buffer-size", 20, "buffer size of each worker")
-	fs.Int64Var(&a.ForcedPushInterval, "interval", 50, "max miliseconds between two push")
+	fs.Int64Var(&analytics.poolSize, "analytics.pool-size", 8, "total worker number in pool")
+	fs.Int64Var(&a.BufferSize, "analytics.buffer-size", 20, "buffer size of each worker")
+	fs.Int64Var(&a.ForcedPushInterval, "analytics.interval", 50, "max miliseconds between two push")
 
 	nfs.AddFlagSet("AnalyticOption", fs)
 }
