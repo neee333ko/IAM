@@ -10,9 +10,12 @@ require (
 	github.com/gin-contrib/cors v1.7.6
 	github.com/gin-contrib/pprof v1.5.3
 	github.com/gin-gonic/gin v1.11.0
+	github.com/go-redsync/redsync/v4 v4.14.0
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/jinzhu/gorm v1.9.16
+	github.com/kelseyhightower/envconfig v1.4.0
+	github.com/mitchellh/mapstructure v1.5.0
 	github.com/neee333ko/api v0.4.0
 	github.com/neee333ko/component-base v0.13.0
 	github.com/neee333ko/errors v1.0.1
@@ -24,6 +27,7 @@ require (
 	github.com/spf13/cobra v1.10.1
 	github.com/spf13/pflag v1.0.10
 	github.com/spf13/viper v1.21.0
+	github.com/vinllen/mgo v0.0.0-20220329061231-e5ecea62f194
 	github.com/vmihailenco/msgpack/v5 v5.4.1
 	github.com/zsais/go-gin-prometheus v1.0.2
 	go.uber.org/mock v0.6.0
@@ -55,6 +59,8 @@ require (
 	github.com/goccy/go-yaml v1.18.0 // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.2 // indirect
 	github.com/gosuri/uitable v0.0.4 // indirect
+	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/golang-lru v0.5.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect

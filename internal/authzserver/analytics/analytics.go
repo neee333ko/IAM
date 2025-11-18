@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	KeyAnalytics     = "iam.cluster.analyics"
+	KeyAnalytics     = "iam.system.analyics"
 	ErrAnalyticsDown = errors.New("analytics is down")
 )
 
